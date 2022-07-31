@@ -2,12 +2,9 @@ import google_auth_httplib2
 import httplib2
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-plt.rcParams["figure.figsize"] = (10,8)
-plt.rcParams.update({'font.size': 12})
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import HttpRequest
