@@ -6,8 +6,13 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import HttpRequest
 
-st.title('Daily BP Measurements')
-#
+st.set_page_config(
+    page_title="Daily BP Measurements Data Entry",
+    page_icon="✍️"
+)
+
+
+
 # # Create a connection object.
 # credentials = service_account.Credentials.from_service_account_info(
 #     dict(st.secrets["gcp_service_account"]),
@@ -24,7 +29,7 @@ SCOPE = "https://www.googleapis.com/auth/spreadsheets"
 SPREADSHEET_ID = "1E337krN2CW7qzDCz6exUbT1KbY4Treol6o1UaY3yUk8"
 # SHEET_NAME = "Test"
 
-@st.experimental_singleton()
+# @st.experimental_singleton()
 def connect_to_gsheet():
     # Create a connection object.
     credentials = service_account.Credentials.from_service_account_info(
@@ -98,17 +103,17 @@ if submitted and codeword=='Aayush Marishi':
     add_row_to_gsheet(
         gsheet_connector,
         'Aayush',
-        [[str(date), str(time)[:5], sys, dia, pulse]],
+        [[date.strftime("%d.%m.%Y"), str(time)[:5], sys, dia, pulse]],
     )
     st.success("Thanks! Your data was recorded.")
 elif submitted and codeword=='Jamie Liang':
     add_row_to_gsheet(
         gsheet_connector,
         'Jamie',
-        [[str(date), str(time)[:5], sys, dia, pulse]],
+        [[date.strftime("%d.%m.%Y"), str(time)[:5], sys, dia, pulse]],
     )
     st.success("Thanks! Your data was recorded.")
-else:
+elif submitted:
     st.error("Wrong code name.")
 
 expander = st.expander("See all records of A")
