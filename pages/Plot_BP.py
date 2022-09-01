@@ -65,6 +65,7 @@ with expander:
     df = get_data(gsheet_connector, 'Aayush')
 
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+    df = df.sort_values("Date", ascending=True)
     df['SYS'] = pd.to_numeric(df['SYS'])
     df['DIA'] = pd.to_numeric(df['DIA'])
     df['Pulse'] = pd.to_numeric(df['Pulse'])
@@ -108,6 +109,7 @@ with expander:
     df = get_data(gsheet_connector, 'Jamie')
 
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+    df = df.sort_values("Date", ascending=True)
     df['SYS'] = pd.to_numeric(df['SYS'])
     df['DIA'] = pd.to_numeric(df['DIA'])
     df['Pulse'] = pd.to_numeric(df['Pulse'])
