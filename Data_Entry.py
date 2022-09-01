@@ -81,38 +81,59 @@ def add_row_to_gsheet(gsheet_connector, SHEET_NAME, row) -> None:
         valueInputOption="USER_ENTERED",
     ).execute()
 
+def clear_form():
+    # st.session_state.multiselect = []
+    st.session_state["date"] = ""
+    st.session_state["time"] = ""
+    st.session_state["pulse"] = None
+    st.session_state["sys"] = None
+    st.session_state["dia"] = None
+
 gsheet_connector = connect_to_gsheet()
 
+clear = st.button(label='Clear texts', on_click=clear_form)
 form = st.form(key="annotation")
 
 with form:
-    date = st.date_input("Date:")
+    date = st.date_input("Date:", key="date")
     cols = st.columns((1, 1))
-    time = cols[0].time_input("Time:")
-    pulse = cols[1].text_input("Pulse:")
+    time = cols[0].text_input("Time (24h):", key='time')
+    pulse = cols[1].number_input("Pulse:", key='pulse')
 
     cols = st.columns(2)
-    sys = cols[0].text_input("SYS:")
-    dia = cols[1].text_input("DIA:")
+    sys = cols[0].number_input("SYS:", key='sys')
+    dia = cols[1].number_input("DIA:", key='dia')
 
     codeword = st.text_area("Code word:")
     submitted = st.form_submit_button(label="Submit")
 
 
 if submitted and codeword=='Aayush Marishi':
-    add_row_to_gsheet(
-        gsheet_connector,
-        'Aayush',
-        [[date.strftime("%d.%m.%Y"), str(time)[:5], sys, dia, pulse]],
-    )
-    st.success("Thanks! Your data was recorded.")
+    if len(time)==5:
+        if time[2]==':':
+            add_row_to_gsheet(
+                gsheet_connector,
+                'Aayush',
+                [[date.strftime("%d.%m.%Y"), str(time)[:5], sys, dia, pulse]],
+            )
+            st.success("Thanks! Your data was recorded.")
+        else:
+            st.error("Wrong time format.")
+    else:
+        st.error("Wrong time format.")
 elif submitted and codeword=='Jamie Liang':
-    add_row_to_gsheet(
-        gsheet_connector,
-        'Jamie',
-        [[date.strftime("%d.%m.%Y"), str(time)[:5], sys, dia, pulse]],
-    )
-    st.success("Thanks! Your data was recorded.")
+    if len(time)==5:
+        if time[2]==':':
+            add_row_to_gsheet(
+                gsheet_connector,
+                'Jamie',
+                [[date.strftime("%d.%m.%Y"), str(time)[:5], sys, dia, pulse]],
+            )
+            st.success("Thanks! Your data was recorded.")
+        else:
+            st.error("Wrong time format.")
+    else:
+        st.error("Wrong time format.")
 elif submitted:
     st.error("Wrong code name.")
 
