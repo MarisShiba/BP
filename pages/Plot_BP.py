@@ -65,6 +65,9 @@ expander = st.expander("Records of A")
 with expander:
     df = get_data(gsheet_connector, 'Aayush')
 
+    df['SYS'] = pd.to_numeric(df['SYS'])
+    df['DIA'] = pd.to_numeric(df['DIA'])
+    df['Pulse'] = pd.to_numeric(df['Pulse'])
     df = pd.pivot_table(df,
                         index='Date',
                         values=['SYS', 'DIA', 'Pulse'],
@@ -73,9 +76,6 @@ with expander:
                                  'Pulse': np.mean}).reset_index(drop=False)
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
     df = df.sort_values("Date", ascending=True)
-    df['SYS'] = pd.to_numeric(df['SYS'])
-    df['DIA'] = pd.to_numeric(df['DIA'])
-    df['Pulse'] = pd.to_numeric(df['Pulse'])
 
     sys_mean = df['SYS'].mean()
     dia_mean = df['DIA'].mean()
@@ -115,6 +115,9 @@ expander = st.expander("Records of B")
 with expander:
     df = get_data(gsheet_connector, 'Jamie')
 
+    df['SYS'] = pd.to_numeric(df['SYS'])
+    df['DIA'] = pd.to_numeric(df['DIA'])
+    df['Pulse'] = pd.to_numeric(df['Pulse'])
     df = pd.pivot_table(df,
                         index='Date',
                         values=['SYS', 'DIA', 'Pulse'],
@@ -123,9 +126,6 @@ with expander:
                                  'Pulse': np.mean}).reset_index(drop=False)
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
     df = df.sort_values("Date", ascending=True)
-    df['SYS'] = pd.to_numeric(df['SYS'])
-    df['DIA'] = pd.to_numeric(df['DIA'])
-    df['Pulse'] = pd.to_numeric(df['Pulse'])
 
     sys_mean = df['SYS'].mean()
     dia_mean = df['DIA'].mean()
