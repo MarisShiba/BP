@@ -65,6 +65,7 @@ with expander:
     df = get_data(gsheet_connector, 'Aayush')
 
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+    df = pd.pivot_table(df, index='Date', values=['SYS', 'DIA', 'Pulse']).reset_index(drop=False)
     df = df.sort_values("Date", ascending=True)
     df['SYS'] = pd.to_numeric(df['SYS'])
     df['DIA'] = pd.to_numeric(df['DIA'])
@@ -109,6 +110,7 @@ with expander:
     df = get_data(gsheet_connector, 'Jamie')
 
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
+    df = pd.pivot_table(df, index='Date', values=['SYS', 'DIA', 'Pulse']).reset_index(drop=False)
     df = df.sort_values("Date", ascending=True)
     df['SYS'] = pd.to_numeric(df['SYS'])
     df['DIA'] = pd.to_numeric(df['DIA'])
