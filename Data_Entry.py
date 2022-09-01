@@ -82,8 +82,7 @@ def add_row_to_gsheet(gsheet_connector, SHEET_NAME, row) -> None:
     ).execute()
 
 def clear_form():
-    # st.session_state.multiselect = []
-    st.session_state["date"] = ""
+    st.session_state["code"] = ""
     st.session_state["time"] = ""
     st.session_state["pulse"] = None
     st.session_state["sys"] = None
@@ -91,20 +90,20 @@ def clear_form():
 
 gsheet_connector = connect_to_gsheet()
 
-clear = st.button(label='Clear texts', on_click=clear_form)
+clear = st.button(label='Clear fields', on_click=clear_form)
 form = st.form(key="annotation")
 
 with form:
     date = st.date_input("Date:", key="date")
     cols = st.columns((1, 1))
     time = cols[0].text_input("Time (24h):", key='time')
-    pulse = cols[1].number_input("Pulse:", key='pulse')
+    pulse = cols[1].number_input("Pulse:", key='pulse', min_value=0)
 
     cols = st.columns(2)
-    sys = cols[0].number_input("SYS:", key='sys')
-    dia = cols[1].number_input("DIA:", key='dia')
+    sys = cols[0].number_input("SYS:", key='sys', min_value=0)
+    dia = cols[1].number_input("DIA:", key='dia', min_value=0)
 
-    codeword = st.text_area("Code word:")
+    codeword = st.text_area("Code word:", key='code')
     submitted = st.form_submit_button(label="Submit")
 
 
