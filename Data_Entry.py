@@ -84,9 +84,9 @@ def add_row_to_gsheet(gsheet_connector, SHEET_NAME, row) -> None:
 def clear_form():
     st.session_state["code"] = ""
     st.session_state["time"] = ""
-    st.session_state["pulse"] = None
-    st.session_state["sys"] = None
-    st.session_state["dia"] = None
+    st.session_state["pulse"] = 0
+    st.session_state["sys"] = 0
+    st.session_state["dia"] = 0
 
 gsheet_connector = connect_to_gsheet()
 
